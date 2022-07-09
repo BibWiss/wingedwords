@@ -19,7 +19,6 @@ tweet_content = []
 
 today = datetime.date.today()
 day1 = today + datetime.timedelta(days=1)
-#print(day1)
 
 # start loop
 
@@ -36,13 +35,12 @@ for letter in suffix:
         toc_link = parent_path + listing.find_next("a").get('href')
         word_name = listing.find("span", class_="toctext").string
         if word_name != "Einzelnachweise":
-            tweet_content.append('Geflügeltes Wort des Tages: ' + word_name + ' (#' + str(start_number) + '). Zur Entstehung: ' + toc_link)
+            content = '#WingedWord des Tages: ' + word_name + ' (Nr.' + str(start_number) + '). Zur Entstehung: ' + toc_link
+            tweet_content.append(content)
             dates.append(day1)
             time.append(datetime.time(12).isoformat(timespec='minutes'))
             start_number += 1
             day1 = day1 + datetime.timedelta(days=1)
-
-#print(tweet_content[3], dates[3], time[3])
 
 # save data as a dataframe
 
@@ -57,6 +55,3 @@ print(df)
 # create tsv from df
 
 df.to_csv('wingedwords_output.tsv', sep="\t", index=False)
-
-# To Do
-# shuffle data in col "tweet content"

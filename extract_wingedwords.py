@@ -35,11 +35,12 @@ for letter in suffix:
     for listing in toc_listings:
         toc_link = parent_path + listing.find_next("a").get('href')
         word_name = listing.find("span", class_="toctext").string
-        tweet_content.append('Geflügeltes Wort des Tages: ' + word_name + ' (#' + str(start_number) + '). Zur Entstehung: ' + toc_link)
-        dates.append(day1)
-        time.append(datetime.time(12).isoformat(timespec='minutes'))
-        start_number += 1
-        day1 = day1 + datetime.timedelta(days=1)
+        if word_name != "Einzelnachweise":
+            tweet_content.append('Geflügeltes Wort des Tages: ' + word_name + ' (#' + str(start_number) + '). Zur Entstehung: ' + toc_link)
+            dates.append(day1)
+            time.append(datetime.time(12).isoformat(timespec='minutes'))
+            start_number += 1
+            day1 = day1 + datetime.timedelta(days=1)
 
 #print(tweet_content[3], dates[3], time[3])
 
@@ -50,7 +51,7 @@ df = pd.DataFrame(data=zip(dates,time,tweet_content),columns=columns[0:3])
 df[columns[3]] = ""
 df[columns[4]] = ""
 df[columns[5]] = ""
-# df.drop(df.tail(1).index,inplace=True)
+df['Tweet content'] = df["Tweet content"].sample(frac=1).values
 print(df)
 
 # create tsv from df
@@ -58,5 +59,4 @@ print(df)
 df.to_csv('wingedwords_output.tsv', sep="\t", index=False)
 
 # To Do
-# delete Einzelnachweise entries
 # shuffle data in col "tweet content"

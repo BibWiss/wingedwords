@@ -1,0 +1,3 @@
+# wingedwords
+
+This repo contains all of the code and data used to create the Twitter bot [@wingedwords_](https://twitter.com/wingedwords_). With the help of [get_html.py](get_html.py) all the Wikipedia pages from the list ["Geflügelte Worte"](https://de.wikipedia.org/wiki/Liste_gefl%C3%BCgelter_Worte) have been saved within the directory [html](html). Running [extract_wingedwords.py](extract_wingedwords.py) then outputs a file <code>wingedwords_tweets.tsv</code> that is very similar to [wingedwords_output.tsv](wingedwords_output.tsv).

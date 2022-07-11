@@ -36,7 +36,17 @@ for letter in suffix:
         toc_link = parent_path + listing.find_next("a").get('href')
         word_name = listing.find("span", class_="toctext").string
         if word_name != "Einzelnachweise":
-            content = '#WingedWord des Tages: ' + word_name + ' (Nr.' + str(start_number) + '). Zur Entstehung: ' + toc_link
+            # check if links end with punctuation & replace with utf-8 chars, since those will not be linked automatically by twitter 
+            if toc_link[-1] == ".":
+                toc_link = toc_link[:-1]
+                toc_link += "%2E"
+            elif toc_link[-1] == "!":
+                toc_link = toc_link[:-1]
+                toc_link += "%21"
+            elif toc_link[-1] == "?":
+                toc_link = toc_link[:-1]
+                toc_link += "%3F"
+            content = '#WingedWord des Tages: \"' + word_name + '\" (# ' + str(start_number) + '). Zur Entstehung: ' + toc_link
             tweet_content.append(content)
             dates.append(day1)
             time.append(datetime.time(12).isoformat(timespec='minutes'))
@@ -58,4 +68,4 @@ print(df)
 
 # create tsv from df
 
-df.to_csv('wingedwords_tweets.tsv', sep="\t", index=False)
+df.to_csv('wingedwords_tweets.tsv', sep="\t", index=False, quoting=csv.QUOTE_NONE)

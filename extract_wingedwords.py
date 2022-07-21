@@ -46,6 +46,7 @@ for letter in suffix:
             elif toc_link[-1] == "?":
                 toc_link = toc_link[:-1]
                 toc_link += "%3F"
+            # to do: check if links contain any of the following characters: ', ’, ", () and replace them 
             content = '#WingedWord des Tages: \"' + word_name + '\" (# ' + str(start_number) + '). Zur Entstehung: ' + toc_link
             tweet_content.append(content)
             dates.append(day1)
